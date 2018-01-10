@@ -3,7 +3,7 @@ Module for easily parsing data from UniProt's .dat files on their FTP server. Pa
   1. Download UniProt .dat file from the ftp server: ftp://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/taxonomic_divisions/ (This site is from the Taxonomic divisions file section on the ftp server)
   2. Download the uniprot_dat_parser.py module and ensure that the parser is in the same directory as the .dat uniprot file:
   ```
-  wget 
+  wget https://raw.githubusercontent.com/krishbharat96/UniProt_Dat_Parser/master/uniprot_dat_parser.py
   ```
   3. Import the uniprot_dat_parser 
   ```
