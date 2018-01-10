@@ -39,3 +39,11 @@ Module for easily parsing data from UniProt's .dat files on their FTP server. Pa
         ```
         uniprot_dict[Accession_ID]["PE"]
         ```
+        g. To access Organism information
+        ```
+        uniprot_dict[Accession_ID]["Organism"]
+        ```
+        h. To access protein's ChEMBL ID
+        ```
+        uniprot_dict[Accession_ID]["chembl_id"]
+        ```
