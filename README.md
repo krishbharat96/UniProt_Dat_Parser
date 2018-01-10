@@ -5,6 +5,7 @@ Module for easily parsing data from UniProt's .dat files on their FTP server. Pa
   3. Import the uniprot_dat_parser (import uniprot_dat_parser as udp)
   4. Parse the file using the parse function (uniprot_dict = udp.parse("uniprot_filename.dat"))
   5. Access information from the data dictionary created:
+  
         a. To access isoform information, type (uniprot_dict[Accession_ID]["Isoform"])
         
         b. To access Gene information, type (uniprot_dict[Accession_ID]["Gene"])
