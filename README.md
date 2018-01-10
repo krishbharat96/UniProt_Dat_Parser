@@ -10,7 +10,8 @@ Module for easily parsing data from UniProt's .dat files on their FTP server. Pa
   ```
   uniprot_dict = udp.parse("uniprot_filename.dat")
   ```
-  5. Access information from the data dictionary created
+  5. Access information from the data dictionary created:
+  
         a. To access isoform information
         ```
         uniprot_dict[Accession_ID]["Isoform"]
