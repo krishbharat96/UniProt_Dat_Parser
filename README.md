@@ -1,4 +1,4 @@
-# UniProt .dat file parser 
+# UniProt dat file parser 
 [![DOI](https://zenodo.org/badge/116890519.svg)](https://zenodo.org/badge/latestdoi/116890519)
 
 Module for easily parsing data from UniProt's .dat files on their FTP server primarily for large UniProt database dumps. Parses the .dat file for data regarding protein's name, isoforms, description, Accession ID, gene, and database(ie TrEMBL or SwissProt). First download the uniprot_dat_parser module and install on system, then follow these instructions:
