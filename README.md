@@ -47,5 +47,5 @@ Module for easily parsing data from UniProt's .dat files on their FTP server pri
         ```
         h. To access protein's ChEMBL ID
         ```
-        uniprot_dict[Accession_ID]["chembl_id"]
+        uniprot_dict[Accession_ID]["Chembl_id"]
         ```
