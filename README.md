@@ -31,7 +31,7 @@ Module for easily parsing data from UniProt's .dat files on their FTP server pri
         ```
         d. To access Database information (i.e. from SwissProt or TrEMBL)
         ```
-        uniprot_dict[Accession_ID]["DB"]
+        uniprot_dict[Accession_ID]["Database"]
         ```
         e. To access Sequence Variant information 
         ```
