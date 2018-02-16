@@ -172,6 +172,11 @@ def process_dat_line(lin):
     return new_arr
 
 def process_protein(prot_string):
+    bp_dict = {
+        "P":"BP",
+        "F":"MF",
+        "C":"CC"
+    }
     id_prot = ""
     de_arr = []
     on_isoform = False
@@ -183,6 +188,9 @@ def process_protein(prot_string):
     db_name = ""
     chembl_id = ""
     os = ""
+    extra_id_arr = ""
+    go_dict = {"CC":{}, "MF":{}, "BP":{}}
+    gene_id_arr = []
     for line in prot_string.splitlines():
         t_split = process_dat_line(line)
         if (t_split[0] == "ID") and (len(t_split) > 1):
@@ -196,12 +204,29 @@ def process_protein(prot_string):
             prot_id = semi_split[0].strip()
             if (id_prot == ""):
                 id_prot = prot_id
+            if len(semi_split) > 1:
+                extra_id_arr = []
+                for n in range(len(semi_split)):
+                    if not (n == 0) and not (n == (len(semi_split) - 1)):
+                        extra_id_arr.append(semi_split[n].strip())
         if (t_split[0] == "DE") and (len(t_split) > 1):
             de_arr.append(t_split[1])
         if (t_split[0] == "CC") and ("-!- ALTERNATIVE PRODUCTS:" in t_split[1]):
             on_isoform = True
             isostring = line
             continue
+        if (t_split[0] == "DR") and (len(t_split) > 1):
+            full_spl = t_split[1].split(";")
+            if full_spl[0].strip() == "GeneID":
+                for it_spl in full_spl:
+                    if not it_spl.strip() == "GeneID" and not "-" in it_spl.strip():
+                        gene_id_arr.append(int(it_spl.strip()))
+            if full_spl[0].strip() == "GO":
+                go_id = full_spl[1].strip()
+                go_name_arr = full_spl[2].strip().split(":")
+                go_name = go_name_arr[1].strip()
+                go_type = go_name_arr[0].strip()
+                go_dict[bp_dict[go_type]].update({go_id:go_name})
         if (on_isoform == True):
             if not "-!-" in line:
                 isostring = isostring + "\n" + line
@@ -228,7 +253,7 @@ def process_protein(prot_string):
                         chembl_id = c_item.strip()
         if (t_split[0] == "OS"):
             os = t_split[1].replace(".", "").strip()
-    return {id_prot:{"Name":prot_name, "Description":process_de(de_arr), "Isoform":create_iso(isostring), "SV":sv_int, "PE":pe_val, "Gene":gene_arr, "Database":db_name, "Chembl_id":chembl_id, "Organism": os}}
+    return {id_prot:{"Name":prot_name, "Description":process_de(de_arr), "Isoform":create_iso(isostring), "SV":sv_int, "PE":pe_val, "Gene":gene_arr, "DB":db_name, "Chembl_id":chembl_id, "Organism": os, "Prev_ids":extra_id_arr, "GO":go_dict, "Gene_IDs":gene_id_arr}}
 
 def parse(filename):
     prot_dict = dict()
@@ -241,11 +266,12 @@ def parse(filename):
                 if not (str1.strip() == ""):
                     prot_dict.update(process_protein(str1))
                 str1 = line
-                # print t_split[1], t_split[2]
             else:
                 str1 = str1 + line
     prot_dict.update(process_protein(str1))
-    # print prot_dict
     return prot_dict
+    
+
+
     
 
